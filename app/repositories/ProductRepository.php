@@ -28,8 +28,9 @@ class ProductRepository
         return $this->entity->create($data);
     }
 
-    public function update(array $data)
+    public function update(int $id, array $data)
     {
+        $this->entity = $this->findById($id);
         return $this->entity->update($data);
     }
 

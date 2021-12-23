@@ -30,13 +30,11 @@ class ProductService
     public function update(int $id, array $data)
     {
         $product = $this->findById($id);
-        $product->name = $data['name'];
-        return $this->repository->update($product);
+        return $this->repository->update($id, $data);
     }
 
     public function delete(int $id)
     {
-        $product = $this->findById($id);
-        return $product->delete();
+        return $this->repository->delete($id);
     }
 }
