@@ -20,14 +20,26 @@
                 <a class="navbar-brand" href="#">ShopApp</a>
             </div>
             <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownProduct"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     Produtos
                 </a>
 
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <ul class="dropdown-menu" aria-labelledby="dropdownProduct">
                     <li><a class="dropdown-item" href="{{route('products.create')}}">Novo</a></li>
                     <li><a class="dropdown-item" href="{{route('products.index')}}">Exibir todos</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownTag"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Tags
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="dropdownTag">
+                    <li><a class="dropdown-item" href="{{route('tags.create')}}">Nova</a></li>
+                    <li><a class="dropdown-item" href="{{route('tags.index')}}">Exibir todas</a></li>
                 </ul>
             </div>
         </nav>
