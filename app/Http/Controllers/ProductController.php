@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
+use App\Models\Product;
 use App\Services\ProductService;
+use App\Services\TagService;
 
 class ProductController extends Controller
 {
-    protected ProductService $service;
+    protected ProductService $serviceProduct;
+    protected TagService $serviceTag;
 
-    public function __construct(ProductService $productService)
+    public function __construct(ProductService $productService, TagService $tagService)
     {
-        $this->service = $productService;
+        $this->serviceProduct = $productService;
+        $this->serviceTag = $tagService;
     }
     /**
      * Display a listing of the resource.
@@ -20,8 +24,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->service->getAll();
-        $data = ['products' => $products];
+        $products = Product::with('tags')->get(); //$this->serviceProduct->getAll();
+        $data = ['products' => $products->sortBy('id', null, true)];
         return view('products.index', $data);
     }
 
@@ -32,7 +36,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $tags = $this->serviceTag->getAll();
+        $data = ['tags' => $tags];
+        return view('products.create', $data);
     }
 
     /**
@@ -43,7 +49,8 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $this->service->create($request->all());
+        //\dd($request->all());
+        $this->serviceProduct->create($request->all());
 
         return redirect()->route('products.index')->with('status', 'Produto salvo!');
     }
@@ -56,8 +63,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = $this->service->findById($id);
-        $data = ['product' => $product];
+        $product = $this->serviceProduct->findById($id);
+        $tags = $this->serviceTag->getAll();
+        $data = ['product' => $product, 'tags' => $tags];
         return view('products.edit', $data);
     }
 
@@ -70,7 +78,7 @@ class ProductController extends Controller
      */
     public function update(StoreProductRequest $request, $id)
     {
-        $this->service->update($id, $request->all());
+        $this->serviceProduct->update($id, $request->all());
         return redirect()->route('products.index')->with('status', 'Produto atualizado!');
     }
 
@@ -82,7 +90,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $this->service->delete($id);
+        $this->serviceProduct->delete($id);
         return redirect()->route('products.index')->with('status', 'Produto deletado!');
     }
 }

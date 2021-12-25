@@ -24,12 +24,17 @@ class ProductService
 
     public function create(array $data)
     {
+        if (isset($data['tags']))
+            return $this->repository->createWithTags($data);
+
         return $this->repository->create($data);
     }
 
     public function update(int $id, array $data)
     {
         $product = $this->findById($id);
+        if (isset($data['tags']))
+            return $this->repository->updateWithTags($id, $data);
         return $this->repository->update($id, $data);
     }
 

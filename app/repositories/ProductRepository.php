@@ -28,10 +28,22 @@ class ProductRepository
         return $this->entity->create($data);
     }
 
+    public function createWithTags(array $data)
+    {
+        return $this->entity->create($data)->tags()->sync($data['tags']);
+    }
+
     public function update(int $id, array $data)
     {
         $this->entity = $this->findById($id);
         return $this->entity->update($data);
+    }
+
+    public function updateWithTags(int $id, array $data)
+    {
+        $this->entity = $this->findById($id);
+        $this->entity->update($data);
+        return $this->entity->tags()->sync($data['tags']);
     }
 
     public function delete(int $id)

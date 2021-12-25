@@ -11,6 +11,22 @@
             placeholder="Informe o nome do produto">
         <input type="hidden" name="id" value="{{ $product->id }}">
     </div>
-    <input type="submit" value="Salvar">
+    <div class="mb-3">
+        <label for="tags-select" class="form-label">Tags</label>
+        @if ($tags)
+        <select id="tags-select" name="tags[]" class="form-select" size="5" multiple>
+            @foreach ($tags as $tag)
+            @if ($product->tags->contains($tag))
+            <option selected value="{{$tag->id}}">{{$tag->name}}</option>
+            @else
+            <option value="{{$tag->id}}">{{$tag->name}}</option>
+            @endif
+            @endforeach
+        </select>
+        @else
+        <p>Você ainda não cadastrou tags <a href="{{ route('tags.create')}}">Cadastre agora</a></p>
+        @endif
+    </div>
+    <input class="btn btn-primary" type="submit" value="Salvar">
 </form>
 @endsection
