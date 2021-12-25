@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Product;
+use App\Models\Tag;
 use App\Repositories\ProductRepository;
 use App\Services\ProductService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -27,6 +28,17 @@ class ProductTest extends TestCase
         $prod = $productService->create(['name' => 'jose']);
         $this->assertDatabaseCount('products', 1);
         $this->assertModelExists($prod);
+    }
+
+    public function test_create_product_with_tag()
+    {
+        $prod = Product::factory()
+            ->has(Tag::factory())
+            ->create();
+
+        $this->assertDatabaseCount('products', 1);
+        $this->assertDatabaseCount('tags', 1);
+        $this->assertDatabaseCount('product_tag', 1);
     }
 
     public function test_alter_product()
