@@ -24,8 +24,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('tags')->get(); //$this->serviceProduct->getAll();
-        $data = ['products' => $products->sortBy('id', null, true)];
+        $products = $this->serviceProduct->getAllWithTag();
+        $data = ['products' => $products];
         return view('products.index', $data);
     }
 
@@ -49,9 +49,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //\dd($request->all());
         $this->serviceProduct->create($request->all());
-
         return redirect()->route('products.index')->with('status', 'Produto salvo!');
     }
 

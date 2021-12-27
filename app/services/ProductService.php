@@ -12,6 +12,11 @@ class ProductService
         $this->repository = $productRepository;
     }
 
+    public function getAllWithTag()
+    {
+        return $this->repository->getAllWithTag();
+    }
+
     public function getAll()
     {
         return $this->repository->getAll();

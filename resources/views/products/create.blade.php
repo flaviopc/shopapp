@@ -9,7 +9,7 @@
         <input type="text" class="form-control" name="name" id="name" placeholder="Informe o nome do produto">
     </div>
     <div class="mb-3">
-        <label for="tags-select" class="form-label">Tags</label>
+        <label for="tags-select" class="form-label">Tags (segure ctrl para selecionar vários)</label>
         @if ($tags)
         <select id="tags-select" name="tags[]" class="form-select" size="5" multiple>
             @foreach ($tags as $tag)
@@ -20,6 +20,7 @@
         <p>Você ainda não cadastrou tags <a href="{{ route('tags.create')}}">Cadastre agora</a></p>
         @endif
     </div>
+    <a class="btn btn-warning" href="{{ route('products.index')}}">Cancelar</a>
     <input class="btn btn-primary" type="submit" value="Salvar">
 </form>
 @endsection

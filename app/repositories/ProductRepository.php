@@ -18,6 +18,11 @@ class ProductRepository
         return $this->entity->all();
     }
 
+    public function getAllWithTag()
+    {
+        return $this->entity::with('tags')->get();
+    }
+
     public function findById(int $id)
     {
         return $this->entity->findOrFail($id);

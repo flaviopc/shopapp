@@ -27,6 +27,7 @@
         <p>Você ainda não cadastrou tags <a href="{{ route('tags.create')}}">Cadastre agora</a></p>
         @endif
     </div>
+    <a class="btn btn-warning" href="{{ route('products.index')}}">Cancelar</a>
     <input class="btn btn-primary" type="submit" value="Salvar">
 </form>
 @endsection
