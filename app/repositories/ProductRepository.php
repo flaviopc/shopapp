@@ -20,7 +20,7 @@ class ProductRepository
 
     public function getAllWithTag()
     {
-        return $this->entity::with('tags')->get();
+        return $this->entity::with('tags')->paginate(10);
     }
 
     public function findById(int $id)

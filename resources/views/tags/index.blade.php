@@ -1,12 +1,9 @@
 @extends('layout.app')
 
-@if (session('status'))
-<div class="alert alert-success">
-    {{ session('status') }}
-</div>
-@endif
 @section('content')
-
+@include('shared.alert_success')
+@include('shared.title',['title'=>'Tags cadastradas'])
+<a class="btn btn-primary" href="{{ route('tags.create')}}">Cadastrar tag</a>
 <table class="table">
     <thead>
         <tr>
@@ -16,7 +13,6 @@
         </tr>
     </thead>
     <tbody>
-
         @forelse ($tags as $tag )
         <tr>
             <th scope="row">{{$tag->id}}</th>
@@ -26,7 +22,6 @@
                     <a href="{{route('tags.destroy',$tag->id)}}" class="btn btn-sm btn-danger">Deletar</a>
                     <a href="{{route('tags.edit',$tag->id)}}" class="btn btn-sm btn-warning">Editar</a>
                 </div>
-
             </td>
         </tr>
         @empty
@@ -34,9 +29,8 @@
             <td colspan="3">Sem tags</td>
         </tr>
         @endforelse
-
     </tbody>
 </table>
-
+{{ $tags->links()}}
 
 @endsection

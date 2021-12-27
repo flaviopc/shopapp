@@ -15,7 +15,7 @@ class TagRepository
 
     public function getAll()
     {
-        return $this->entity->all();
+        return $this->entity->paginate(10);
     }
 
     public function findById(int $id)

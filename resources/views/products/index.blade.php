@@ -1,12 +1,9 @@
 @extends('layout.app')
 
-@if (session('status'))
-<div class="alert alert-success">
-    {{ session('status') }}
-</div>
-@endif
 @section('content')
-
+@include('shared.alert_success')
+@include('shared.title',['title'=>'Produtos cadastrados'])
+<a class="btn btn-primary" href="{{ route('products.create')}}">Cadastrar produto</a>
 <table class="table">
     <thead>
         <tr>
@@ -17,7 +14,6 @@
         </tr>
     </thead>
     <tbody>
-
         @forelse ($products as $product )
         <tr>
             <th scope="row">{{$product->id}}</th>
@@ -43,6 +39,6 @@
 
     </tbody>
 </table>
-
+{{ $products->links() }}
 
 @endsection
