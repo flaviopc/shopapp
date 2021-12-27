@@ -2,6 +2,7 @@
 
 @section('content')
 @include('shared.errors')
+@include('shared.title',['title'=>'Alterar tag'])
 <form method="POST" action="{{route('tags.update',['id'=>$tag->id])}}">
     @csrf
     @method('PUT')

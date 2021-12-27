@@ -2,6 +2,7 @@
 
 @section('content')
 @include('shared.errors')
+@include('shared.title',['title'=>'Alterar produto'])
 <form method="POST" action="{{route('products.update',['id'=>$product->id])}}">
     @csrf
     @method('PUT')

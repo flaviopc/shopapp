@@ -15,32 +15,20 @@
 
 <body>
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">ShopApp</a>
-            </div>
-            <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownProduct"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Produtos
-                </a>
-
-                <ul class="dropdown-menu" aria-labelledby="dropdownProduct">
-                    <li><a class="dropdown-item" href="{{route('products.create')}}">Novo</a></li>
-                    <li><a class="dropdown-item" href="{{route('products.index')}}">Exibir todos</a></li>
-                </ul>
-            </div>
-
-            <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownTag"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Tags
-                </a>
-
-                <ul class="dropdown-menu" aria-labelledby="dropdownTag">
-                    <li><a class="dropdown-item" href="{{route('tags.create')}}">Nova</a></li>
-                    <li><a class="dropdown-item" href="{{route('tags.index')}}">Exibir todas</a></li>
-                </ul>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" href="{{route('products.index')}}">Produtos</a>
+                        <a class="nav-link active" href="{{route('tags.index')}}">Tags</a>
+                    </div>
+                </div>
             </div>
         </nav>
         @yield('content')

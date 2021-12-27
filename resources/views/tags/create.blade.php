@@ -2,6 +2,7 @@
 
 @section('content')
 @include('shared.errors')
+@include('shared.title',['title'=>'Cadastrar tag'])
 <form method="POST" action="{{route('tags.store')}}">
     @csrf
     <div class="mb-3">

@@ -2,6 +2,7 @@
 
 @section('content')
 @include('shared.errors')
+@include('shared.title',['title'=>'Novo produto'])
 <form method="POST" action="{{route('products.store')}}">
     @csrf
     <div class="mb-3">
