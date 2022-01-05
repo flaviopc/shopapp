@@ -5,7 +5,10 @@ namespace Tests\Unit;
 use App\Models\Product;
 use App\Models\Tag;
 use App\Repositories\ProductRepository;
+use App\Repositories\TagRepository;
 use App\Services\ProductService;
+use App\Services\TagService;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -13,9 +16,14 @@ class ProductTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function getService()
+    public function getServiceProduct()
     {
         return new ProductService(new ProductRepository(new Product()));
+    }
+
+    public function getServiceTag()
+    {
+        return new TagService(new TagRepository(new Tag()));
     }
     /**
      * A basic unit test example.
@@ -24,26 +32,35 @@ class ProductTest extends TestCase
      */
     public function test_create_product()
     {
-        $productService = $this->getService();
+        $productService = $this->getServiceProduct();
         $prod = $productService->create(['name' => 'jose']);
         $this->assertDatabaseCount('products', 1);
         $this->assertModelExists($prod);
     }
 
+    public function test_not_create_product()
+    {
+        $this->expectException(QueryException::class);
+        $productService = $this->getServiceProduct();
+        $prod = $productService->create(['nam' => 'jose']);
+        $this->assertDatabaseCount('products', 0);
+        $this->assertModelMissing($prod);
+    }
+
     public function test_create_product_with_tag()
     {
-        $prod = Product::factory()
-            ->has(Tag::factory())
-            ->create();
-
-        $this->assertDatabaseCount('products', 1);
+        $tagService = $this->getServiceTag();
+        $tag = $tagService->create(['name' => 'livros']);
         $this->assertDatabaseCount('tags', 1);
+        $productService = $this->getServiceProduct();
+        $prod = $productService->create(['name' => 'produto livro', 'tags' => $tag]);
+        $this->assertDatabaseCount('products', 1);
         $this->assertDatabaseCount('product_tag', 1);
     }
 
     public function test_alter_product()
     {
-        $productService = $this->getService();
+        $productService = $this->getServiceProduct();
         $prod = $productService->create(['name' => 'jose']);
         $this->assertDatabaseCount('products', 1);
         $newName = "maria";
@@ -56,7 +73,7 @@ class ProductTest extends TestCase
 
     public function test_get_product_by_id()
     {
-        $productService = $this->getService();
+        $productService = $this->getServiceProduct();
         $prod = $productService->create(['name' => 'jose']);
         $this->assertDatabaseCount('products', 1);
         $prodFind = $productService->findById($prod->id);
@@ -65,7 +82,7 @@ class ProductTest extends TestCase
 
     public function test_delete_product()
     {
-        $productService = $this->getService();
+        $productService = $this->getServiceProduct();
         $prod = $productService->create(['name' => 'jose']);
         $this->assertModelExists($prod);
         $productService->delete($prod->id);
