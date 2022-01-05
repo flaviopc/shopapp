@@ -2,19 +2,14 @@
 
 namespace App\Services;
 
-use App\Repositories\ProductRepository;
+use App\Repositories\Contracts\ProductRepositoryInterface;
 
 class ProductService
 {
     protected $repository;
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->repository = $productRepository;
-    }
-
-    public function getAllWithTag()
-    {
-        return $this->repository->getAllWithTag();
     }
 
     public function getAll()
@@ -29,8 +24,6 @@ class ProductService
 
     public function create(array $data)
     {
-        if (isset($data['tags']))
-            return $this->repository->createWithTags($data);
 
         return $this->repository->create($data);
     }
@@ -38,8 +31,6 @@ class ProductService
     public function update(int $id, array $data)
     {
         $product = $this->findById($id);
-        if (isset($data['tags']))
-            return $this->repository->updateWithTags($id, $data);
         return $this->repository->update($id, $data);
     }
 

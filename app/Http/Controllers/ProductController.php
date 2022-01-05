@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
-use App\Models\Product;
 use App\Services\ProductService;
 use App\Services\TagService;
 
@@ -24,7 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->serviceProduct->getAllWithTag();
+        $products = $this->serviceProduct->getAll();
         $data = ['products' => $products];
         return view('products.index', $data);
     }
