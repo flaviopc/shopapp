@@ -64,3 +64,11 @@ php artisan migrate
 
 Agora é só acessar a aplicação
 [http://localhost](http://localhost)
+
+SQL de produtos
+
+```sh
+select p.name produto, t.name tag from tags t
+inner join product_tag pt on pt.tag_id = t.id
+inner join products p on p.id = pt.product_id
+```
